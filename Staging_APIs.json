@@ -1,0 +1,4524 @@
+{
+	"info": {
+		"_postman_id": "2d548662-e451-4961-84e1-6284423ffcb8",
+		"name": "Staging APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13340399",
+		"_collection_link": "https://bold-flare-738004.postman.co/workspace/My-Workspace~8173e30a-e28c-4e63-8a6a-407f4912e5b6/collection/13340399-2d548662-e451-4961-84e1-6284423ffcb8?action=share&source=collection_link&creator=13340399"
+	},
+	"item": [
+		{
+			"name": "Customer Log in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.text();",
+							"function removeCharacter(responseJson, characterToRemove) {",
+							"",
+							"    return responseJson.replace(new RegExp(characterToRemove, 'g'), '');",
+							"}",
+							"var characterToRemove = '\"';",
+							"var newText = removeCharacter(responseJson, characterToRemove);",
+							"pm.globals.set(\"customer_token\", newText);",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/integration/customer/token?username={{email}}&password={{password}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"integration",
+						"customer",
+						"token"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting products on staging",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/products?searchCriteria[pageSize]=20&searchCriteria[currentPage]=1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "20"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting product data import by color",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/V1/products/attributes/color/options",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"V1",
+						"products",
+						"attributes",
+						"color",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "default - Getting product data import by size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/V1/products/attributes/size/options",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"V1",
+						"products",
+						"attributes",
+						"size",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "egoshoes_us - Getting product data import by size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/egoshoes_us/V1/products/attributes/size/options",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"egoshoes_us",
+						"V1",
+						"products",
+						"attributes",
+						"size",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "egoshoes_au - Getting product data import by size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/egoshoes_au/V1/products/attributes/size/options",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"egoshoes_au",
+						"V1",
+						"products",
+						"attributes",
+						"size",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "egoshoes_eu - Getting product data import by size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/egoshoes_eu/V1/products/attributes/size/options",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"egoshoes_eu",
+						"V1",
+						"products",
+						"attributes",
+						"size",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "egoshoes_ca - Getting product data import by size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/egoshoes_ca/V1/products/attributes/size/options",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"egoshoes_ca",
+						"V1",
+						"products",
+						"attributes",
+						"size",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "egoshoes_ae - Getting product data import by size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/egoshoes_ae/V1/products/attributes/size/options",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"egoshoes_ae",
+						"V1",
+						"products",
+						"attributes",
+						"size",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting Category Tree",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/default/V1/categories",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"default",
+						"V1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Setting stock levels.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"stock_item\":\n\t{\n\t\"Qty\":50,\"is_in_stock\": true\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/products/{{sku_for_stock}}/stockItems/16",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"products",
+						"{{sku_for_stock}}",
+						"stockItems",
+						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gorgias System API calls to Magento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/orders/{{order_id_gorgias}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"orders",
+						"{{order_id_gorgias}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting orders from OrderMS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "3iHTjc5gsxfbiyVSo1EIkOsPxqM18xwJRwfb60C6KbiLR5LKAUYpbNNbxgsmXbWJ",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"order_item_id\": 13509105,\n            \"qty\": 1\n        },\n        {\n            \"order_item_id\": 13509106,\n            \"qty\": 1\n        }\n    ],\n    \"notify\": true,\n    \"tracks\": [\n        {\n            \"track_number\": \"FY551681712GB\",\n            \"title\": \"RoyalMailHV\",\n            \"carrier_code\": \"RoyalMailHV\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{sale_stagingURL}}/api/v1/orders",
+					"host": [
+						"{{sale_stagingURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting order from OrderMS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "3iHTjc5gsxfbiyVSo1EIkOsPxqM18xwJRwfb60C6KbiLR5LKAUYpbNNbxgsmXbWJ",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{sale_stagingURL}}/api/v1/orders/{{order_id_orderMS}}",
+					"host": [
+						"{{sale_stagingURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"{{order_id_orderMS}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publishing orders to OrderMS via SQS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"params\" : \"usman.ali@rltsquare.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/getOrdersData",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"getOrdersData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting HS_code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "rmozkxDKzM0DE4fNBfGUTFJG5OZNMT93QiNe7wjD0dboLQ1QDf1IPSmfg8RIEkUS",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{proucts_stagingURL}}/api/v1/products/175586",
+					"host": [
+						"{{proucts_stagingURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"175586"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OrderMS via Email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "3iHTjc5gsxfbiyVSo1EIkOsPxqM18xwJRwfb60C6KbiLR5LKAUYpbNNbxgsmXbWJ",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{sale_stagingURL}}/api/v1/getOrdersByParams?email=usman.ali@rltsquare.com",
+					"host": [
+						"{{sale_stagingURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"getOrdersByParams"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "usman.ali@rltsquare.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting stock item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/stockItems/{{sku_for_stock}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"stockItems",
+						"{{sku_for_stock}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updating stock",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"stock_item\":\n\t{\n\t\"Qty\":0,\"is_in_stock\": false\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/products/{{sku_for_stock}}/stockItems/1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"products",
+						"{{sku_for_stock}}",
+						"stockItems",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tiktok product id magento attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "rmozkxDKzM0DE4fNBfGUTFJG5OZNMT93QiNe7wjD0dboLQ1QDf1IPSmfg8RIEkUS",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api-token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{proucts_stagingURL}}/api/v1/products/845",
+					"host": [
+						"{{proucts_stagingURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"845"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting currency attributes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/products/{{sku_for_stock}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"products",
+						"{{sku_for_stock}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting product for currencies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/products/{{sku_for_stock}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"products",
+						"{{sku_for_stock}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Child products with SKU",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/configurable-products/{{sku_for_child}}/childrenWithStock",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"configurable-products",
+						"{{sku_for_child}}",
+						"childrenWithStock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products modified since",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/products?searchCriteria[filterGroups][0][filters][0][field]=updated_at&searchCriteria[filterGroups][0][filters][0][value]=2023-08-01%2012%3A14%3A49&searchCriteria[filterGroups][0][filters][0][conditionType]=gt&fields=items[sku]&searchCriteria[currentPage]=1&searchCriteria[pageSize]=50",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][field]",
+							"value": "updated_at"
+						},
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][value]",
+							"value": "2023-08-01%2012%3A14%3A49"
+						},
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][conditionType]",
+							"value": "gt"
+						},
+						{
+							"key": "fields",
+							"value": "items[sku]"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cart ID for guest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.text();",
+							"function removeCharacter(responseJson, characterToRemove) {",
+							"    ",
+							"    return responseJson.replace(new RegExp(characterToRemove, 'g'), '');",
+							"}",
+							" var characterToRemove = '\"';",
+							"var newText = removeCharacter(responseJson, characterToRemove);",
+							"pm.globals.set(\"guest_cart_id\",newText);",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guest - Adding cart with items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cartItem\": {\n    \"sku\": \"USMAN TEST NUDE\",\n    \"qty\": 1,\n    \"quote_id\": \"{{guest_cart_id}}\",\n    \"product_option\": {\n      \"extension_attributes\": {\n        \"configurable_item_options\": [\n          {\n            \"option_id\": 182,\n            \"option_value\": 14\n          }\n        ]\n      }\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_id}}/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_id}}",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cart Items for Guest (EG - 2222)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const getData = () => pm.response.json();",
+							"pm.test(\"Returns a book object\", () => {",
+							"    const dataArray = getData(); // Extract the 'items' property from the response",
+							"    // Assuming you're checking the first item in the array",
+							"    const data = dataArray[0];",
+							"    // Check if the 'item_id' property exists",
+							"    pm.expect(data).to.have.property(\"item_id\");",
+							"    // Store the 'item_id' in a global variable",
+							"    pm.globals.set(\"item_id\", data.item_id.toString()); // Convert to string before storing",
+							"     // Check if the 'quote_id' property exists",
+							"    pm.expect(data).to.have.property(\"quote_id\");",
+							"    // Store the 'quote_id' in a global variable",
+							"    pm.globals.set(\"quote_id\", data.quote_id.toString()); // Convert to string before storing",
+							"});",
+							"// Parse the response JSON",
+							"var responseBody = pm.response.json();",
+							"//Check for EG-2222",
+							"// Verify parent_product_sku and parent_product_image_url",
+							"if (responseBody && responseBody.length > 0) {",
+							"    responseBody.forEach(function(item) {",
+							"        pm.test(\"Parent product SKU should match\", function () {",
+							"            pm.expect(item.extension_attributes.parent_product_sku).to.equal(\"USMAN TEST NUDE\");",
+							"        });",
+							"",
+							"        pm.test(\"Parent product image URL should match\", function () {",
+							"            pm.expect(item.extension_attributes.parent_product_image_url).to.equal(\"https://m2.staging.ego.co.uk.cfstack.com/static/version1692347953/webapi_rest/_view/en_GB/Magento_Catalog/images/product/placeholder/thumbnail.jpg\");",
+							"        });",
+							"    });",
+							"}",
+							"",
+							"//Adding check for EG - 2180 and 2205",
+							"// Verify item_thumbnail for each item",
+							"if (responseBody.items && responseBody.items.length > 0) {",
+							"    responseBody.items[0].items.forEach(function(item) {",
+							"        if (item.extension_attributes && item.extension_attributes.item_thumbnail) {",
+							"            pm.test(\"Item thumbnail should match\", function () {",
+							"                pm.expect(item.extension_attributes.item_thumbnail).to.equal(\"https://m2.staging.ego.co.uk.cfstack.com/media/catalog/product/2/2/22-09-22_fwbags0201_sq.jpg\");",
+							"            });",
+							"        }",
+							"    });",
+							"}",
+							"",
+							"",
+							"if (responseBody.items && responseBody.items.length > 0) {",
+							"    responseBody.items[0].items.forEach(function(item) {",
+							"        if (item.extension_attributes && item.extension_attributes.item_size_label) {",
+							"            pm.test(\"item_size_label should match\", function () {",
+							"                pm.expect(item.extension_attributes.item_size_label).to.equal(\"3\");",
+							"            });",
+							"        }",
+							"    });",
+							"}",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_id}}/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_id}}",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update cart item's custom option values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cartItem\": {\n    \"sku\": \"USMAN TEST NUDE\",\n    \"qty\": 1,\n    \"product_option\": {\n      \"extension_attributes\": {\n        \"configurable_item_options\": [\n          {\n            \"option_id\": 182,\n            \"option_value\": 999\n          }\n        ]\n      }\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_id}}/items/{{item_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_id}}",
+						"items",
+						"{{item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get my cart for login user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/carts/mine",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"carts",
+						"mine"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CMS Block",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/cmsBlock/mega_menu_uk",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"cmsBlock",
+						"mega_menu_uk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding WishList for Registered User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item\": {\n        \"qty\": 1,\n        \"product\": \"CLF151 EE006 BLUE\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/wishlist",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"wishlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting WishList ( EG-2121,2219 & 2218)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Adding checks for EG- 2121",
+							"// Parse the response JSON",
+							"var responseBody = pm.response.json();",
+							"",
+							"// Verify product_name",
+							"pm.test(\"Product name should match\", function () {",
+							"    pm.expect(responseBody.items[0].product_name).to.equal(\"Printed Mesh Mini Dress In Blue Print\");",
+							"});",
+							"//Check is added for EG -2218",
+							"// Verify price",
+							"pm.test(\"Price should be zero if it is configurable \", function () {",
+							"    pm.expect(responseBody.items[0].price).to.equal(0);",
+							"});",
+							"",
+							"// Verify thumbnail_image",
+							"pm.test(\"Thumbnail image should match \", function () {",
+							"    pm.expect(responseBody.items[0].thumbnail_image).to.equal(\"https://m2.staging.ego.co.uk.cfstack.com/media/catalog/product/2/6/26-11-21-351.jpg\");",
+							"});",
+							"",
+							"// Verify size_name",
+							"pm.test(\"Size name should be null\", function () {",
+							"    pm.expect(responseBody.items[0].size_name).to.be.null;",
+							"});",
+							"",
+							"// Verify color_name",
+							"pm.test(\"Color name should match\", function () {",
+							"    pm.expect(responseBody.items[0].color_name).to.equal(\"BLUE\");",
+							"});",
+							"//Check for 2219",
+							"// Verify SKU",
+							"pm.test(\"SKU should match\", function () {",
+							"    pm.expect(responseBody.items[0].sku).to.equal(\"CLF151 EE006 BLUE\");",
+							"});",
+							"// Verify product type is configurable",
+							"pm.test(\"Product name should not contain the word 'size', if it is configurable\", function () {",
+							"    pm.expect(responseBody.items[0].product_name).to.not.include('size');",
+							"});",
+							"",
+							"const getData = () => pm.response.json();",
+							"pm.test(\"Returns a book object\", () => {",
+							"    const dataArray = getData().items; // Extract the 'items' property from the response",
+							"    // Assuming you're checking the first item in the array",
+							"    const data = dataArray[0];",
+							"    // Check if the 'wishlist_item_id' property exists",
+							"    pm.expect(data).to.have.property(\"wishlist_item_id\");",
+							"    // Store the 'wishlist_item_id' in a global variable",
+							"    pm.globals.set(\"wishlist_item_id\", data.wishlist_item_id.toString()); // Convert to string before storing",
+							"",
+							"});",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/wishlist",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"wishlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete WishList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/wishlist/{{wishlist_item_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"wishlist",
+						"{{wishlist_item_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API for performance Release",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/products?searchCriteria[filterGroups][0][filters][0][field]=sku&searchCriteria[filterGroups][0][filters][0][conditionType]=in&searchCriteria[currentPage]=1&searchCriteria[pageSize]=100&searchCriteria[filterGroups][0][filters][0][value]=CLH290%20UKWSJA041%20NU%23SIZES%2CCLH290%20UKWSJA041%20NU%23SIZEM%2CCLH290%20UKWSJA041%20NU%23SIZEL%2CCLH290%20UKWSJA041%20NU%2CCLH292%20UKWSJA042%20KG%23SIZES%2CCLH292%20UKWSJA042%20KG%23SIZEM%2CCLH292%20UKWSJA042%20KG%23SIZEL%2CCLH292%20UKWSJA042%20KG%2CCLH293%20UKSWJA043%20KG%23SIZES%2CCLH293%20UKSWJA043%20KG%23SIZEM%2CCLH293%20UKSWJA043%20KG%23SIZEL%2CCLH293%20UKSWJA043%20KG%2CCLH295%20UKWSJA046%20NU%23SIZES%2CCLH295%20UKWSJA046%20NU%23SIZEM%2CCLH295%20UKWSJA046%20NU%23SIZEL%2CCLH295%20UKWSJA046%20NU%2CCLH296%20UKWSJA047%20NU%23SIZES%2CCLH296%20UKWSJA047%20NU%23SIZEM%2CCLH296%20UKWSJA047%20NU%23SIZEL%2CCLH296%20UKWSJA047%20NU%2CCLH296%20UKWSJA047%20KG%23SIZES%2CCLH296%20UKWSJA047%20KG%23SIZEM%2CCLH296%20UKWSJA047%20KG%23SIZEL%2CCLH296%20UKWSJA047%20KG%2CCLH297%20UKWSJA048%20KG%23SIZES%2CCLH297%20UKWSJA048%20KG%23SIZEM%2CCLH297%20UKWSJA048%20KG%23SIZEL%2CCLH297%20UKWSJA048%20KG%2CCLH300%20UKWSJA056%20NU%23SIZES%2CCLH300%20UKWSJA056%20NU%23SIZEM%2CCLH300%20UKWSJA056%20NU%23SIZEL%2CCLH300%20UKWSJA056%20NU%2CCLH337%20PKINJAEG-57%20GR%23SIZE06%2CCLH337%20PKINJAEG-57%20GR%23SIZE08%2CCLH337%20PKINJAEG-57%20GR%23SIZE10%2CCLH337%20PKINJAEG-57%20GR%23SIZE12%2CCLH337%20PKINJAEG-57%20GR%23SIZE14%2CCLH337%20PKINJAEG-57%20GR%2CCLH337%20PKINJAEG-57%20CR%23SIZE06%2CCLH337%20PKINJAEG-57%20CR%23SIZE08%2CCLH337%20PKINJAEG-57%20CR%23SIZE10%2CCLH337%20PKINJAEG-57%20CR%23SIZE12%2CCLH337%20PKINJAEG-57%20CR%23SIZE14%2CCLH337%20PKINJAEG-57%20CR%2CCLH350%20PKINJAEG-53%20GR%23SIZE06%2CCLH350%20PKINJAEG-53%20GR%23SIZE08%2CCLH350%20PKINJAEG-53%20GR%23SIZE10%2CCLH350%20PKINJAEG-53%20GR%23SIZE12%2CCLH350%20PKINJAEG-53%20GR%23SIZE14%2CCLH350%20PKINJAEG-53%20GR&XDEBUG_SESSION=PHPSTORM",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][field]",
+							"value": "sku"
+						},
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][conditionType]",
+							"value": "in"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "100"
+						},
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][value]",
+							"value": "CLH290%20UKWSJA041%20NU%23SIZES%2CCLH290%20UKWSJA041%20NU%23SIZEM%2CCLH290%20UKWSJA041%20NU%23SIZEL%2CCLH290%20UKWSJA041%20NU%2CCLH292%20UKWSJA042%20KG%23SIZES%2CCLH292%20UKWSJA042%20KG%23SIZEM%2CCLH292%20UKWSJA042%20KG%23SIZEL%2CCLH292%20UKWSJA042%20KG%2CCLH293%20UKSWJA043%20KG%23SIZES%2CCLH293%20UKSWJA043%20KG%23SIZEM%2CCLH293%20UKSWJA043%20KG%23SIZEL%2CCLH293%20UKSWJA043%20KG%2CCLH295%20UKWSJA046%20NU%23SIZES%2CCLH295%20UKWSJA046%20NU%23SIZEM%2CCLH295%20UKWSJA046%20NU%23SIZEL%2CCLH295%20UKWSJA046%20NU%2CCLH296%20UKWSJA047%20NU%23SIZES%2CCLH296%20UKWSJA047%20NU%23SIZEM%2CCLH296%20UKWSJA047%20NU%23SIZEL%2CCLH296%20UKWSJA047%20NU%2CCLH296%20UKWSJA047%20KG%23SIZES%2CCLH296%20UKWSJA047%20KG%23SIZEM%2CCLH296%20UKWSJA047%20KG%23SIZEL%2CCLH296%20UKWSJA047%20KG%2CCLH297%20UKWSJA048%20KG%23SIZES%2CCLH297%20UKWSJA048%20KG%23SIZEM%2CCLH297%20UKWSJA048%20KG%23SIZEL%2CCLH297%20UKWSJA048%20KG%2CCLH300%20UKWSJA056%20NU%23SIZES%2CCLH300%20UKWSJA056%20NU%23SIZEM%2CCLH300%20UKWSJA056%20NU%23SIZEL%2CCLH300%20UKWSJA056%20NU%2CCLH337%20PKINJAEG-57%20GR%23SIZE06%2CCLH337%20PKINJAEG-57%20GR%23SIZE08%2CCLH337%20PKINJAEG-57%20GR%23SIZE10%2CCLH337%20PKINJAEG-57%20GR%23SIZE12%2CCLH337%20PKINJAEG-57%20GR%23SIZE14%2CCLH337%20PKINJAEG-57%20GR%2CCLH337%20PKINJAEG-57%20CR%23SIZE06%2CCLH337%20PKINJAEG-57%20CR%23SIZE08%2CCLH337%20PKINJAEG-57%20CR%23SIZE10%2CCLH337%20PKINJAEG-57%20CR%23SIZE12%2CCLH337%20PKINJAEG-57%20CR%23SIZE14%2CCLH337%20PKINJAEG-57%20CR%2CCLH350%20PKINJAEG-53%20GR%23SIZE06%2CCLH350%20PKINJAEG-53%20GR%23SIZE08%2CCLH350%20PKINJAEG-53%20GR%23SIZE10%2CCLH350%20PKINJAEG-53%20GR%23SIZE12%2CCLH350%20PKINJAEG-53%20GR%23SIZE14%2CCLH350%20PKINJAEG-53%20GR"
+						},
+						{
+							"key": "XDEBUG_SESSION",
+							"value": "PHPSTORM"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer\": {\n        \"email\": \"usman.ali18feb@gmail.com\",\n        \"firstname\": \"Test\",\n        \"lastname\": \"Test\" \n    \n    },\n  \"password\": \"@Mani112233\"\n      \n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/customers",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const getData = () => pm.response.json();",
+							"pm.test(\"Returns a book object\", () => {",
+							"    const dataArray = getData().items; // Extract the 'items' property from the response",
+							"    // Assuming you're checking the first item in the array",
+							"    const data = dataArray[0];",
+							"    // Check if the 'id' property exists",
+							"    pm.expect(data).to.have.property(\"id\");",
+							"    // Store the 'id' in a global variable",
+							"    pm.globals.set(\"customer_id\", data.id.toString()); // Convert to string before storing",
+							"});",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/customers/search?searchCriteria[pageSize]=100&searchCriteria[currentPage]=1&searchCriteria[filter_groups][0][filters][0][field]=email&searchCriteria[filter_groups][0][filters][0][value]=usman.ali18feb@gmail.com&searchCriteria[filter_groups][0][filters][0][condition_type]=eq",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"customers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "100"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][field]",
+							"value": "email"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][value]",
+							"value": "usman.ali18feb@gmail.com"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][condition_type]",
+							"value": "eq"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/customers/{{customer_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"customers",
+						"{{customer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting customer by email (EG-2190)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check for EG-2190",
+							"var responseBody = pm.response.json();",
+							"",
+							"pm.test(\"Response body should have an empty 'items' array\", function() {",
+							"    pm.expect(responseBody.items).to.be.an('array').that.is.empty;",
+							"});",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/customers/search?searchCriteria[pageSize]=100&searchCriteria[currentPage]=1&searchCriteria[filter_groups][0][filters][0][field]=email&searchCriteria[filter_groups][0][filters][0][value]=usman.ali18feb@gmail.com&searchCriteria[filter_groups][0][filters][0][condition_type]=eq",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"customers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "100"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][field]",
+							"value": "email"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][value]",
+							"value": "usman.ali18feb@gmail.com"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][condition_type]",
+							"value": "eq"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Color variations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/products?searchCriteria[filterGroups][0][filters][0][field]=sku&searchCriteria[filterGroups][0][filters][0][conditionType]=in&searchCriteria[currentPage]=1&searchCriteria[pageSize]=50&searchCriteria[filterGroups][0][filters][0][value]={{sku_for_stock}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][field]",
+							"value": "sku"
+						},
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][conditionType]",
+							"value": "in"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "50"
+						},
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][value]",
+							"value": "{{sku_for_stock}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  products of category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/categories/880/products",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"categories",
+						"880",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get value id of size attributes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/products/attributes/size/options",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"products",
+						"attributes",
+						"size",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Product with keyword (EG-2235)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check for EG - 2235",
+							"const getData = () => pm.response.json();",
+							"pm.test(\"Verify color is not null\", () => {",
+							"    const responseData = getData();",
+							"",
+							"    if (responseData.items && responseData.items.length > 0) {",
+							"        const product = responseData.items[0];",
+							"",
+							"        // Check if the 'color' attribute exists and is not null",
+							"        pm.expect(product.custom_attributes.find(attr => attr.attribute_code === \"color\").value).to.not.be.null;",
+							"    } else {",
+							"        pm.expect.fail(\"No items found in the response.\");",
+							"    }",
+							"});",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"} else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400\", function () {",
+							"        pm.response.to.have.status(400);",
+							"    });",
+							"",
+							"} else {",
+							"    pm.test(\"401 Unauthorized\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/V1/products?searchCriteria[filter_groups][0][filters][1][field]=name&searchCriteria[filter_groups][0][filters][1][value]=%25usman%25&searchCriteria[filter_groups][0][filters][1][condition_type]=like&searchCriteria[pageSize]=10&searchCriteria[currentPage]=1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"V1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][field]",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][value]",
+							"value": "heels",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][condition_type]",
+							"value": "finest",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][1][field]",
+							"value": "name"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][1][value]",
+							"value": "%25usman%25"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][1][condition_type]",
+							"value": "like"
+						},
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "10"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding wishlist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{customer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"item\": {\n        \"qty\": 1,\n        \"product\": \"CLF151 EE006 BLUE#SIZE12\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/wishlist",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"wishlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const getData = () => pm.response.json();",
+							"pm.test(\"Returns a book object\", () => {",
+							"    const dataArray = getData().items; // Extract the 'items' property from the response",
+							"    // Assuming you're checking the first item in the array",
+							"    const data = dataArray[0];",
+							"     // Check if the 'increment_id' property exists",
+							"    pm.expect(data).to.have.property(\"increment_id\");",
+							"    // Store the 'ship_item_id' in a global variable",
+							"    pm.globals.set(\"increment_id\", data.increment_id.toString()); // Convert to string before storing",
+							"  ",
+							"});",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/V1/orders?searchCriteria[pageSize]=50&searchCriteria[currentPage]=1&searchCriteria[filter_groups][1][filters][0][field]=created_at&searchCriteria[filter_groups][1][filters][0][value]=2023-05-06+22%3A52%3A30&searchCriteria[filter_groups][1][filters][0][condition_type]=gt&searchCriteria[filter_groups][2][filters][0][field]=status&searchCriteria[filter_groups][2][filters][0][value]=processing&searchCriteria[filter_groups][2][filters][0][condition_type]=eq",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"V1",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "50"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][field]",
+							"value": "item_id",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][value]",
+							"value": "16377545",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][condition_type]",
+							"value": "eq",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][field]",
+							"value": "created_at"
+						},
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][value]",
+							"value": "2023-05-06+22%3A52%3A30"
+						},
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][condition_type]",
+							"value": "gt"
+						},
+						{
+							"key": "searchCriteria[filter_groups][2][filters][0][field]",
+							"value": "status"
+						},
+						{
+							"key": "searchCriteria[filter_groups][2][filters][0][value]",
+							"value": "processing"
+						},
+						{
+							"key": "searchCriteria[filter_groups][2][filters][0][condition_type]",
+							"value": "eq"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cart ID for guest to confirm price with tax",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.text();",
+							"function removeCharacter(responseJson, characterToRemove) {",
+							"    ",
+							"    return responseJson.replace(new RegExp(characterToRemove, 'g'), '');",
+							"}",
+							" var characterToRemove = '\"';",
+							"var newText = removeCharacter(responseJson, characterToRemove);",
+							"pm.globals.set(\"guest_cart_id\",newText);",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guest - Adding cart item to confirm price with tax",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cartItem\": {\n    \"sku\": \"USMAN TEST NUDE#SIZE9\",\n    \"qty\": 1,\n    \"quote_id\": \"{{guest_cart_id}}\",\n    \"product_option\": {\n      \"extension_attributes\": {\n        \"configurable_item_options\": [\n          {\n            \"option_id\": 182,\n            \"option_value\": 14\n          }\n        ]\n      }\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_id}}/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_id}}",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cart Items for Guest (EG-2201)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"// Extract the price from the response",
+							"var responseBody = pm.response.json();",
+							"",
+							"if (responseBody && responseBody.items && responseBody.items.length > 0) {",
+							"    var extractedPrice = responseBody.items[0].price;",
+							"    console.log(\"Extracted Price:\", extractedPrice);",
+							"    ",
+							"   var priceWithTax = parseFloat(pm.globals.get(\"price_with_tax\"));",
+							"console.log(\"Global Price with Tax:\", priceWithTax);",
+							"    ",
+							"    // Compare the extracted price with the global variable",
+							"    if (extractedPrice === priceWithTax) {",
+							"        console.log(\"Price verification successful.\");",
+							"    } else {",
+							"        console.log(\"Price verification failed. Prices do not match.\");",
+							"    }",
+							"} else {",
+							"    console.log(\"Unable to extract price from response.\");",
+							"}",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cart ID for guest to place order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.text();",
+							"function removeCharacter(responseJson, characterToRemove) {",
+							"    ",
+							"    return responseJson.replace(new RegExp(characterToRemove, 'g'), '');",
+							"}",
+							" var characterToRemove = '\"';",
+							"var newText = removeCharacter(responseJson, characterToRemove);",
+							"pm.globals.set(\"guest_cart_order\",newText);",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guest - Adding cart with items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cartItem\": {\n    \"sku\": \"USMAN TEST NUDE\",\n    \"qty\": 1,\n    \"quote_id\": \"{{guest_cart_order}}\",\n    \"product_option\": {\n      \"extension_attributes\": {\n        \"configurable_item_options\": [\n          {\n            \"option_id\": 182,\n            \"option_value\": 17\n          }\n        ]\n      }\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_order}}/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_order}}",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Guest - Adding cart with items with Test product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cartItem\": {\n    \"sku\": \"USMAN TEST NUDE\",\n    \"qty\": 1,\n    \"quote_id\": \"{{guest_cart_order}}\",\n    \"product_option\": {\n      \"extension_attributes\": {\n        \"configurable_item_options\": [\n          {\n            \"option_id\": 182,\n            \"option_value\": 14\n          }\n        ]\n      }\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_order}}/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_order}}",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cart Items for Guest (EG-2113)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Adding check for EG-2113 ",
+							"const responseData = pm.response.json(); // Parse the response JSON",
+							"// Check if the response data contains items and is not an empty array",
+							"if (responseData.length > 0) {",
+							"    // Get the first item from the response data",
+							"    const data = responseData[0];",
+							"",
+							"    // Check the expected properties",
+							"  pm.test(\"Parent product image URL should match\", function () {",
+							"    const expectedURLs = [",
+							"        \"https://m2.staging.ego.co.uk.cfstack.com/static/version1692347953/webapi_rest/_view/en_GB/Magento_Catalog/images/product/placeholder/thumbnail.jpg\",",
+							"        \"https://m2.staging.ego.co.uk.cfstack.com/static/version1692347953/webapi_rest/_view/en_GB/Magento_Catalog/images/product/placeholder/thumbnail.jpg\"",
+							"    ];",
+							"    ",
+							"    pm.expect(expectedURLs.includes(data.extension_attributes.parent_product_image_url)).to.be.true;",
+							"});",
+							"  pm.test(\" label of size attribute should match\", function () {",
+							"    const expectedLabels = [",
+							"        \"UK 3 / US 5 / EU 36\",",
+							"        \"UK 4 / US 6 / EU 37\"",
+							"    ];",
+							"    ",
+							"    pm.expect(expectedLabels.includes(data.extension_attributes.label_of_size_attr)).to.be.true;",
+							"});",
+							"",
+							"//     pm.test(\"label of size attribute should match\", function () {",
+							"//         pm.expect(data.extension_attributes.label_of_size_attr).to.equal(\"UK 3 / US 5 / EU 36\");",
+							"//     });",
+							"// }",
+							"}",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"}",
+							"else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_order}}/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_order}}",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Shipping and billing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"addressInformation\": {\n    \"shipping_address\": {\n      \"country_id\": \"GB\",\n      \"street\": [\n        \"Unit 1A longford trading\"\n      ],\n      \"postcode\": \"m32 0jt\",\n      \"city\": \"Manchester\",\n      \"firstname\": \"Test\",\n      \"lastname\": \"Test\",\n      \"email\": \"usman.ali@rltsquare.com\",\n      \"telephone\": \"512-555-1111\"\n    },\n    \"billing_address\": {\n      \"country_id\": \"GB\",\n      \"street\": [\n        \"Unit 1A longford trading estate\"\n      ],\n      \"postcode\": \"m32 0jt\",\n      \"city\": \"Manchester\",\n      \"firstname\": \"Test\",\n      \"lastname\": \"Test\",\n      \"email\": \"usman.ali@rltsquare.com\",\n      \"telephone\": \"512-555-1111\"\n    },\n    \"shipping_carrier_code\": \"RoyalMailHV\",\n    \"shipping_method_code\": \"royalmailtracked2_3workingdays\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_order}}/shipping-information",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_order}}",
+						"shipping-information"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set payment and place order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.text();",
+							"function removeCharacter(responseJson, characterToRemove) {",
+							"    ",
+							"    return responseJson.replace(new RegExp(characterToRemove, 'g'), '');",
+							"}",
+							" var characterToRemove = '\"';",
+							" ",
+							"var newText = removeCharacter(responseJson, characterToRemove);",
+							"",
+							"pm.globals.set(\"entity_id\",newText);",
+							"// Define the delay in milliseconds",
+							"const delayInMilliseconds = 1000; // Adjust the delay time as needed",
+							"// Add a delay using setTimeout",
+							"setTimeout(function () {",
+							"}, delayInMilliseconds);",
+							"",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"usman.ali@rltsquare.com\",\n    \"paymentMethod\": {\n            \"method\": \"stripe_offline\",\n            \"additional_data\": {\n                \"cc_stripejs_token\" : \"pm_card_visa\",\n                \"stripe_transaction_id\": \"pi_3MwSXxKmlxEsczIW0cBiIWr4\"\n            }\n        },\n  \"billing_address\": {\n    \"country_id\": \"GB\",\n      \"street\": [\n        \"Unit 1A longford trading estate\"\n      ],\n      \"postcode\": \"m32 0jt\",\n      \"city\": \"Manchester\",\n      \"firstname\": \"Test\",\n      \"lastname\": \"Test\",\n      \"email\": \"usman.ali@rltsquare.com\",\n      \"telephone\": \"512-555-1111\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/guest-carts/{{guest_cart_order}}/order",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"guest-carts",
+						"{{guest_cart_order}}",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invoice the order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"",
+							"",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"} else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"} else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        const errorMessage = pm.response.json().message;",
+							"        console.error(`Status code is 400: Bad Request\\nError message: ${errorMessage}`);",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        console.error(`Unexpected status code: ${pm.response.code}`);",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"capture\": false, // unsure about this\n    \"notify\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/order/{{entity_id}}/invoice",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"order",
+						"{{entity_id}}",
+						"invoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting order by entity ID (EG - 2180 and 2205)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonResponse = pm.response.json();",
+							"pm.test(\"Returns a book object\", () => {",
+							"    if (jsonResponse.items && jsonResponse.items.length > 0) {",
+							"        for (let i = 0; i < jsonResponse.items.length; i++) {",
+							"            const currentOrder = jsonResponse.items[i];",
+							"            const items = currentOrder.items;",
+							"",
+							"            if (items && items.length > 0) {",
+							"                for (let j = 0; j < items.length; j++) {",
+							"                    const currentItem = items[j];",
+							"",
+							"                    if (currentItem.item_id) {",
+							"                        pm.globals.set(`item_id_${i + 1}_${j + 1}`, currentItem.item_id.toString());",
+							"                    }",
+							"                }",
+							"            }",
+							"        }",
+							"    }",
+							"});",
+							"",
+							"//Adding check for EG - 2180 and 2205",
+							"// Parse the response JSON",
+							"var responseBody = pm.response.json();",
+							"",
+							"// Verify item_thumbnail for each item",
+							"if (responseBody.items && responseBody.items.length > 0) {",
+							"    responseBody.items[0].items.forEach(function(item) {",
+							"        if (item.extension_attributes && item.extension_attributes.item_thumbnail) {",
+							"            pm.test(\"Item thumbnail should match\", function () {",
+							"                pm.expect(item.extension_attributes.item_thumbnail).to.equal(\"https://m2.staging.ego.co.uk.cfstack.com/media/catalog/product/2/2/22-09-22_fwbags0201_sq.jpg\");",
+							"            });",
+							"        }",
+							"    });",
+							"}",
+							"",
+							"// Verify item_size_label for each item",
+							"if (responseBody.items && responseBody.items.length > 0) {",
+							"    responseBody.items[0].items.forEach(function(item) {",
+							"        if (item.extension_attributes && item.extension_attributes.item_size_label) {",
+							"            pm.test(\"item_size_label should match\", function () {",
+							"                // You can use a single condition to check the value",
+							"                pm.expect(item.extension_attributes.item_size_label).to.be.oneOf([\"3\", \"4\"]);",
+							"            });",
+							"        }",
+							"    });",
+							"}",
+							"",
+							"// Status code checks",
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"} else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"} else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/V1/orders?searchCriteria[pageSize]=50&searchCriteria[currentPage]=1&searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]={{entity_id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"V1",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "50"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][field]",
+							"value": "entity_id"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][value]",
+							"value": "{{entity_id}}"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][condition_type]",
+							"value": "eq",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][field]",
+							"value": "created_at",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][value]",
+							"value": "2023-08-13+22%3A52%3A30",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][condition_type]",
+							"value": "gt",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][2][filters][0][field]",
+							"value": "status",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][2][filters][0][value]",
+							"value": "processing",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][2][filters][0][condition_type]",
+							"value": "eq",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ship an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n  \"items\": [\n    {\n      \"order_item_id\": {{item_id_1_1}},\n      \"qty\": 1\n    },\n      {\n      \"order_item_id\": {{item_id_1_3}},\n      \"qty\": 1\n    }\n\n  ],\n   \"notify\" : true,\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/V1/order/{{entity_id}}/ship",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"V1",
+						"order",
+						"{{entity_id}}",
+						"ship"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partially Refund",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": {{item_id_1_1}},\n      \"qty\": 1\n    }\n  ],\n  \"arguments\": {\n    \"shipping_amount\": 0,\n    \"adjustment_positive\": 0,\n    \"adjustment_negative\": 0\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/order/{{entity_id}}/refund",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"order",
+						"{{entity_id}}",
+						"refund"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Full Refund",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"}",
+							"    else if (pm.response.code === 401) {",
+							"    pm.test(\"Status code is 401: unauthorized\", function () {",
+							"        pm.expect.fail(`Status code is 401: unauthorized ${pm.response.code}`);",
+							"    });",
+							"    }",
+							"    else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400: Bad Request\", function () {",
+							"        pm.expect.fail(`Status code is 400: Bad Request ${pm.response.code}`);",
+							"    });",
+							"} else {",
+							"    pm.test(\"Unexpected status code\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": {{item_id_1_3}},\n      \"qty\": 1\n    }\n  ],\n  \"arguments\": {\n    \"shipping_amount\": 0,\n    \"adjustment_positive\": 0,\n    \"adjustment_negative\": 0\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/order/{{entity_id}}/refund",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"order",
+						"{{entity_id}}",
+						"refund"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ACL Magento Sertvice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    pm.test(\"Status code is 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"} else if (pm.response.code === 400) {",
+							"    pm.test(\"Status code is 400\", function () {",
+							"        pm.response.to.have.status(400);",
+							"    });",
+							"    ",
+							"} else {",
+							"    pm.test(\"401 Unauthorized\", function () {",
+							"        pm.expect.fail(`Unexpected status code: ${pm.response.code}`);",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/rest/default/V1/products?searchCriteria[filterGroups][0][filters][0][field]=updated_at&searchCriteria[filterGroups][0][filters][0][value]=\"2023-04-17\"&searchCriteria[filterGroups][0][filters][0][conditionType]=gt&fields=items[updated_at,sku]&searchCriteria[currentPage]=1&searchCriteria[pageSize]=50",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"rest",
+						"default",
+						"V1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][field]",
+							"value": "updated_at"
+						},
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][value]",
+							"value": "\"2023-04-17\""
+						},
+						{
+							"key": "searchCriteria[filterGroups][0][filters][0][conditionType]",
+							"value": "gt"
+						},
+						{
+							"key": "fields",
+							"value": "items[updated_at,sku]"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "On US- Search products with filters",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/index.php/rest/egoshoes_us/V1/products?searchCriteria[filter_groups][0][filters][0][field]=sku&searchCriteria[filter_groups][0][filters][0][value]=%25NO-SCRUBS%25&searchCriteria[filter_groups][0][filters][0][condition_type]=like&searchCriteria[pageSize]=20&searchCriteria[currentPage]=1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"index.php",
+						"rest",
+						"egoshoes_us",
+						"V1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][field]",
+							"value": "item_size_label",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][value]",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][1][filters][0][condition_type]",
+							"value": "gt",
+							"disabled": true
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][field]",
+							"value": "sku"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][value]",
+							"value": "%25NO-SCRUBS%25"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][condition_type]",
+							"value": "like"
+						},
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "20"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "rdoun2mftciffaf3bciw3rs6mi6rhbyt",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

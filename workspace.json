@@ -1,0 +1,319 @@
+{
+	"id": "ba2cad05-3027-4e2f-82c1-5575168e782f",
+	"values": [
+		{
+			"key": "Token",
+			"value": "ozbkugfgxcs2emcgnzx44vz1vyobf6g8",
+			"enabled": true
+		},
+		{
+			"key": "username",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "@Mani112233",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "otp",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "customer_token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "prod_customer_token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "guest_cart_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "prod_guest_cart_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "wishlist_item_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "customer_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "item_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "prod_item_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "baseURL",
+			"value": "https://m2.staging.ego.co.uk.cfstack.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "prodBaseURL",
+			"value": "https://ego.co.uk",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "quote_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "prod_quote_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "increment_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ship_item_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "entity_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sku",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "email",
+			"value": "usman.ali@rltsquare.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sku_for_stock",
+			"value": "SAI095%20VALERIE%20BKPU%23SIZE9",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "prod_sku_for_stock",
+			"value": "USMAN%20TEST%20NUDE%23SIZE9",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "order_id_gorgias",
+			"value": "6141954",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "order_id_orderMS",
+			"value": "003346599",
+			"enabled": true
+		},
+		{
+			"key": "sale_stagingURL",
+			"value": "http://sales-staging.ego.co.uk",
+			"enabled": true
+		},
+		{
+			"key": "sale_prodURL",
+			"value": "https://sales.ego.co.uk",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "proucts_stagingURL",
+			"value": "https://products-staging.ego.co.uk",
+			"enabled": true
+		},
+		{
+			"key": "proucts_prodURL",
+			"value": "https://products.ego.co.uk",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sku_for_child",
+			"value": "SA020%20FRM1%20BLACK%20SU",
+			"enabled": true
+		},
+		{
+			"key": "prod_sku_for_child",
+			"value": "SA020%20FRM1%20BLACK%20SU",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ordered_item_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "guest_cart_order",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sku_for_priceTax",
+			"value": "USMAN%20TEST%20NUDE%23SIZE9",
+			"enabled": true
+		},
+		{
+			"key": "price_with_tax",
+			"value": "4.99",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ordered_item_id2",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ordered_item_id1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "item_id_1_1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "item_id_1_2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "item_id_1_3",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "item_id_1_4",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "prod_wishlist_item_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "prod_customer_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "prod_increment_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "prod_guest_cart_order",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "parent_sku",
+			"value": "HAH038%20POSH%20SIPU",
+			"enabled": true
+		},
+		{
+			"key": "prodParent_sku",
+			"value": "USMAN%20TEST%20NUDE",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "omsBaseURL",
+			"value": "https://oms-dev.ego.co.uk.cfstack.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "external_id",
+			"value": "123340",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "updated_external_id",
+			"value": "123340",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ship_external_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "highestID",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "updated_ship_external_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-10-09T09:07:53.578Z",
+	"_postman_exported_using": "Postman/10.18.9"
+}
